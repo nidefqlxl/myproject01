@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工增删改查</title>
+</head>
+<body>
+<form th:action="@{/update}">
+    <input type="hidden" th:value="${emp.getId()}" name="id">
+    <div>
+        <label>lastName</label>
+        <input name="lastName" th:value="${emp.getLastName()}">
+    </div>
+    <div>
+        <label>email</label>
+        <input name="email" th:value="${emp.getEmail()}">
+    </div>
+
+    <div>
+        <div>
+            <label >男</label>
+            <input name="gender" th:checked="${emp.getGender()==1}" type="radio" th:value="1">
+        </div>
+        <div>
+            <label>女</label>
+            <input name="gender" th:checked="${emp.getGender()==0}" type="radio" th:value="0">
+        </div>
+    </div>
+
+    <div>
+        <label>department</label>
+        <select name="department.id">
+            <option th:each="dep:${deps}" th:selected="${dep.getDepartmentName()==emp.getDepartment().getDepartmentName()}" th:text="${dep.getDepartmentName()}" th:value="${dep.getId()}"></option>
+        </select>
+    </div>
+    <div>
+        <label>birth</label>
+        <input name="birth" th:value="${#dates.format(emp.getBirth(),'yyyy-MM-dd HH:mm:ss')}">
+    </div>
+    <button type="submit">修改</button>
+</form>
+</body>
+</html>
